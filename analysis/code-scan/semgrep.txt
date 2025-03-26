@@ -1,0 +1,48 @@
+                   
+                   
+┌─────────────────┐
+│ 5 Code Findings │
+└─────────────────┘
+                             
+  [36m[22m[24m  Dockerfile[0m
+   ❯❯❱ [1mdockerfile.security.missing-user-entrypoint.missing-user-entrypoint[0m
+          By not specifying a USER, a program in the container may run as 'root'. This is a security hazard.
+          If an attacker can control a process running as root, they may have control over the container.   
+          Ensure that the last USER in a Dockerfile is a USER other than 'root'.                            
+          Details: https://sg.run/k281                                                                      
+                                                                                                            
+           [32m▶▶┆ Autofix ▶ [0mUSER non-root ENTRYPOINT ["python"]
+           16┆ ENTRYPOINT ["python"]
+   
+   ❯❯❱ [1mdockerfile.security.missing-user.missing-user[0m
+          By not specifying a USER, a program in the container may run as 'root'. This is a security hazard.
+          If an attacker can control a process running as root, they may have control over the container.   
+          Ensure that the last USER in a Dockerfile is a USER other than 'root'.                            
+          Details: https://sg.run/Gbvn                                                                      
+                                                                                                            
+           [32m▶▶┆ Autofix ▶ [0mUSER non-root CMD ["app.py"]
+           17┆ CMD ["app.py"]
+                            
+  [36m[22m[24m  config.py[0m
+   ❯❯❱ [1mpython.flask.security.audit.hardcoded-config.avoid_hardcoded_config_SECRET_KEY[0m
+          Hardcoded variable `SECRET_KEY` detected. Use environment variables or config files instead
+          Details: https://sg.run/Ekde                                                               
+                                                                                                     
+           13┆ vuln_app.app.config['SECRET_KEY'] = 'random'
+                                       
+  [36m[22m[24m  models/user_model.py[0m
+   ❯❯❱ [1mpython.jwt.security.jwt-hardcode.jwt-python-hardcoded-secret[0m
+          Hardcoded JWT secret or private key is used. This is a Insufficiently Protected Credentials     
+          weakness: https://cwe.mitre.org/data/definitions/522.html Consider using an appropriate security
+          mechanism to protect the credentials (e.g. keeping secrets in environment variables)            
+          Details: https://sg.run/l2E9                                                                    
+                                                                                                          
+           39┆ vuln_app.app.config.get('SECRET_KEY'),
+                                             
+  [36m[22m[24m  openapi_specs/openapi3.yml[0m
+   ❯❯❱ [1mgeneric.secrets.security.detected-jwt-token.detected-jwt-token[0m
+          JWT token detected          
+          Details: https://sg.run/05N5
+                                      
+          193┆ example: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1
+               Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw'                    
