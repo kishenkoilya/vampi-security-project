@@ -3,7 +3,7 @@
   "max_combinations": 20,
   "authentication": {
     "token": {
-      "token_refresh_cmd": "/home/ilya/vampi-security-project/scan_venv/bin/python3 /home/ilya/vampi-security-project/acquire_token.py",
+      "token_refresh_cmd": "/home/ilya/vvenv/bin/python3 /home/ilya/vampi-security-project/acquire_token.py",
       "token_refresh_interval": 10
     }
   }
